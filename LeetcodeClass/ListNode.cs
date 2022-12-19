@@ -28,17 +28,19 @@ namespace LeetcodeSolution.LeetcodeClass
         }
 
 
-        public static ListNode Create(params int[] vals)
+
+
+        public static ListNode Create(IEnumerable<int> vals)
         {
             if (vals == null) return null;
 
             var dummyListNode = new ListNode();
-            var node = dummyListNode;
-            for (int i = 0; i < vals.Length; i++)
+
+            vals.Aggregate(dummyListNode, (a, c) =>
             {
-                node.next = new ListNode(vals[i]);
-                node = node.next;
-            }
+                a.next = new ListNode(c);
+                return a.next;
+            });
             return dummyListNode.next;
         }
 
