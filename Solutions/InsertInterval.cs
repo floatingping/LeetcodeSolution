@@ -10,115 +10,30 @@ namespace LeetcodeSolution.Solutions
     public class InsertInterval
     {
 
-        public class QA
+        [Theory]
+        [InlineData("[[1,3],[6,9]]", "[2,5]", "[[1,5],[6,9]]")]
+        [InlineData("[[1,2],[3,5],[6,7],[8,10],[12,16]]", "[4,8]", "[[1,2],[3,10],[12,16]]")]
+        [InlineData("[]", "[5,7]", "[[5,7]]")]
+        [InlineData("[[1,5]]", "[2,3]", "[[1,5]]")]
+        public void Test(string oStr, string iStr, string expect)
         {
-            public QA(int[][] origin, int[] insert, int[][] expect)
-            {
-                Origin = origin;
-                Insert = insert;
-                Expect = expect;
-            }
-
-            public int[][] Origin { get; }
-            public int[] Insert { get; }
-            public int[][] Expect { get; }
-        }
-
-        public static QA GetQA1()
-        {
-            return new QA(
-            new int[][]
-            {
-                    new int[] { 1, 3 },
-                    new int[] { 6, 9 }
-            },
-
-            new int[] { 2, 5 },
-
-            new int[][]
-            {
-                    new int[] { 1, 5 },
-                    new int[] { 6, 9 }
-            });
-        }
-
-
-        public static QA GetQA2()
-        {
-            return new QA(
-            new int[][]
-            {
-                new int[] { 1, 2 },
-                new int[] { 3, 5 },
-                new int[] { 6, 7 },
-                new int[] { 8, 10 },
-                new int[] { 12, 16 }
-            },
-
-            new int[] { 4, 8 },
-
-            new int[][]
-            {
-                new int[] { 1, 2 },
-                new int[] { 3, 10 },
-                new int[] { 12, 16 }
-            });
-        }
-
-
-        public static QA GetQA3()
-        {
-            return new QA(
-            new int[][]
-            {
-            },
-
-            new int[] { 5, 7 },
-
-            new int[][]
-            {
-                new int[] { 5, 7 }
-            });
-        }
-        public static QA GetQA4()
-        {
-            return new QA(
-            new int[][]
-            {
-                new int[] { 1, 5 }
-            },
-
-            new int[] { 2, 3 },
-
-            new int[][]
-            {
-                new int[] { 1, 5 }
-            });
-        }
-
-
-        [Fact]
-        public void Test()
-        {
-            var qaList = new List<QA>() { GetQA1(), GetQA2(), GetQA3(), GetQA4() };
+            var aryO = LeetcodeUtils.ConvertStringToTwoDimensionArray(oStr).Where(a => a.Count() > 0).ToArray();
+            var aryI = LeetcodeUtils.ConvertStringToOneDimensionArray(iStr);
+            var aryE = LeetcodeUtils.ConvertStringToTwoDimensionArray(expect);
             var aSolution = new Solution();
 
-            foreach (var qa in qaList)
+
+            var actual = aSolution.Insert(aryO, aryI.ToArray());
+            //var expect = qa.Expect;
+
+            Assert.Equal(aryE.Count(), actual.Count());
+
+            for (int i = 0; i < actual.Count(); i++)
             {
-                var actual = aSolution.Insert(qa.Origin, qa.Insert);
-                var expect = qa.Expect;
-
-                Assert.Equal(expect.Count(), actual.Count());
-
-                for (int i = 0; i < actual.Count(); i++)
-                {
-                    Assert.Equal(2, actual[i].Count());
-                    Assert.Equal(actual[i][0], expect[i][0]);
-                    Assert.Equal(actual[i][1], expect[i][1]);
-                }
-
+                Assert.Equal(2, actual[i].Count());
+                Assert.Equal(actual[i][0], aryE[i][0]);
+                Assert.Equal(actual[i][1], aryE[i][1]);
             }
-
         }
 
 
