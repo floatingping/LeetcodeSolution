@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LeetcodeSolution.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,8 +28,13 @@ namespace LeetcodeSolution.LeetcodeClass
             return result;
         }
 
-
-
+        public static ListNode Create(string str)
+        {
+            var vals = str.Split(",")
+                .Where(s => !string.IsNullOrWhiteSpace(s))
+                .Select(s => int.Parse(StrHelper.KeepNumbers(s)));
+            return Create(vals);
+        }
 
         public static ListNode Create(IEnumerable<int> vals)
         {
