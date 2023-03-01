@@ -17,9 +17,9 @@ namespace LeetcodeSolution.Solutions
         [InlineData("[[1,5]]", "[2,3]", "[[1,5]]")]
         public void Test(string oStr, string iStr, string expect)
         {
-            var aryO = LeetcodeUtils.ConvertStringToTwoDimensionArray(oStr).Where(a => a.Count() > 0).ToArray();
-            var aryI = LeetcodeUtils.ConvertStringToOneDimensionArray(iStr);
-            var aryE = LeetcodeUtils.ConvertStringToTwoDimensionArray(expect);
+            var aryO = LeetcodeUtils.ConvertToObject<int[][]>(oStr);
+            var aryI = LeetcodeUtils.ConvertToObject<int[]>(iStr);
+            var aryE = LeetcodeUtils.ConvertToObject<int[][]>(expect);
             var aSolution = new Solution();
 
 
