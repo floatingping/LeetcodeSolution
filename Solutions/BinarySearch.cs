@@ -10,32 +10,40 @@ namespace LeetcodeSolution
         [InlineData(-1, 2, -1, 0, 3, 5, 9, 12)]
         public void Test(int expect, int find, params int[] vals)
         {
-            int actual = Search(vals, find);
+            var aSolution = new Solution();
+            int actual = aSolution.Search(vals, find);
 
             Assert.Equal(expect, actual);
         }
 
-        public int Search(int[] nums, int target)
+
+
+        public class Solution
         {
-            int l = 0;
-            int r = nums.Length;
-            while (l < r)
+            public int Search(int[] nums, int target)
             {
-                int mid = l + (r - l) / 2;
-                if (nums[mid] < target)
+                int l = 0;
+                int r = nums.Length;
+                while (l < r)
                 {
-                    l = mid + 1;
+                    int mid = l + (r - l) / 2;
+                    if (nums[mid] < target)
+                    {
+                        l = mid + 1;
+                    }
+                    else if (nums[mid] > target)
+                    {
+                        r = mid;
+                    }
+                    else
+                    {
+                        return mid;
+                    }
                 }
-                else if (nums[mid] > target)
-                {
-                    r = mid;
-                }
-                else
-                {
-                    return mid;
-                }
+                return -1;
             }
-            return -1;
         }
+
+
     }
 }
